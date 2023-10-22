@@ -86,21 +86,24 @@ var finances = [
   ['Jan-2017', 138230],
   ['Feb-2017', 671099],
 ];
+var date=0;
+var increase=0;
+var monthlyChanges = 0;
+var total = 0;
+var decrease=0;
+var date1;
 console.log("Financial Analysis");
 console.log("----------------------------");
 // The total number of months included in the dataset.
 var totalMonths = finances.length;
 console.log("Total Months: " + totalMonths);
-
 // The net total amount of Profit/Losses over the entire period.
-var total = 0;
 for (var i = 0; i < finances.length; i++) {
   total = total + finances[i][1];
 }
 console.log("Total: " + '$' + total);
 // You will need to track what the total change in Profit/Losses are from month to month and then find the average.
 // (Total/(Number of months - 1))
-var monthlyChanges = 0;
 for (var j = 0; j < totalMonths; j++) {
   if (j > 0) {
     monthlyChanges += finances[j][1] - finances[j - 1][1];
@@ -108,7 +111,26 @@ for (var j = 0; j < totalMonths; j++) {
 }
 var changes = monthlyChanges / (totalMonths - 1);
 console.log("Averange Change: " + changes.toFixed(2));
-
 // The greatest increase in Profit/Losses (date and amount) over the entire period.
+for (var k = 0; k < totalMonths; k++) {
+  if (k > 0) {
+    monthlyChanges = finances[k][1] - finances[k - 1][1];
+    if(monthlyChanges>increase){
+      increase=monthlyChanges;
+      date=finances[k][0];
+    }
+  }
+}
+console.log("Greatest Increase in Profits/Losses: "+date+' '+"($" + increase + ")");
 
 // The greatest decrease in Profit/Losses (date and amount) over the entire period.
+for (var l = 0; l < totalMonths; l++) {
+  if (l > 0) {
+    monthlyChanges = finances[l][1] - finances[l - 1][1];
+    if(monthlyChanges<decrease){
+      decrease=monthlyChanges;
+      date1=finances[l][0];
+    }
+  }
+}
+console.log("Greatest Decrease in Profits/Losses: "+date1+' '+"($" + decrease + ")");
